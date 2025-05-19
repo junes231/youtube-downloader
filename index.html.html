@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube 视频下载器</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f0f2f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            color: #333;
+        }
+        input[type="text"] {
+            width: 90%;
+            max-width: 500px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        footer {
+            position: absolute;
+            bottom: 20px;
+            font-size: 14px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <h1>YouTube 视频下载器</h1>
+    <input type="text" id="youtubeUrl" placeholder="请输入 YouTube 视频链接">
+    <button onclick="goToDownload()">下载</button>
+
+    <footer>本站通过 ssyoutube.com 跳转下载，不存储任何视频内容。</footer>
+
+    <script>
+        function getVideoId(url) {
+            const match = url.match(/[?&]v=([^&]+)/) || url.match(/youtu\.be\/([^?&]+)/);
+            return match ? match[1] : null;
+        }
+
+        function goToDownload() {
+            const url = document.getElementById("youtubeUrl").value.trim();
+            const videoId = getVideoId(url);
+            if (videoId) {
+                window.location.href = `https://ssyoutube.com/watch?v=${videoId}`;
+            } else {
+                alert("请输入有效的 YouTube 链接！");
+            }
+        }
+    </script>
+</body>
+</html>
