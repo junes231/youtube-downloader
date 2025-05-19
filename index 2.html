@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube 视频下载器</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon-512.png" type="image/png">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+      background-color: #f9f9f9;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+    }
+    input {
+      width: 80%;
+      max-width: 400px;
+    }
+    button {
+      margin: 10px 5px;
+    }
+  </style>
+</head>
+<body>
+  <h2>YouTube Video Downloader</h2>
+  <p>Enter the YouTube video URL:</p>
+
+  <input type="text" id="youtubeUrl" placeholder="https://www.youtube.com/watch?v=xxxx">
+  <br>
+  <button onclick="pasteFromClipboard()">粘贴链接</button>
+  <button onclick="downloadVideo()">Download</button>
+
+  <script>
+    async function pasteFromClipboard() {
+      try {
+        const text = await navigator.clipboard.readText();
+        document.getElementById("youtubeUrl").value = text;
+      } catch (err) {
+        alert("无法访问剪贴板，请手动粘贴。");
+      }
+    }
+
+    function downloadVideo() {
+      const url = document.getElementById("youtubeUrl").value.trim();
+      if (!url) {
+        alert("请输入或粘贴一个有效的 YouTube 链接");
+        return;
+      }
+      window.location.href = `https://yt1s.ltd/en406?url=${encodeURIComponent(url)}`;
+    }
+  </script>
+</body>
+</html>
