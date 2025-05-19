@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>YouTube Downloader</title>
+  <meta name="description" content="Download YouTube videos by pasting a link.">
+  <link rel="icon" href="icon-512.png" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+      background: #f5f5f5;
+    }
+    h1 {
+      color: #cc0000;
+    }
+    input[type="text"] {
+      width: 80%;
+      max-width: 400px;
+      padding: 10px;
+      margin: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 16px;
+      margin: 6px;
+      font-size: 16px;
+      border: none;
+      background-color: #cc0000;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #a30000;
+    }
+    footer {
+      margin-top: 40px;
+      font-size: 14px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- version: 2025-05-20 08:55 UTC -->
+
+  <h1>YouTube Downloader</h1>
+  <p>Paste a YouTube link below to download:</p>
+  
+  <input type="text" id="urlInput" placeholder="Paste YouTube link here">
+  <br>
+  <button onclick="pasteFromClipboard()">Paste Link</button>
+  <button onclick="download()">Download</button>
+
+  <footer>
+    <p>For educational use only. Not affiliated with YouTube.</p>
+  </footer>
+
+  <script>
+    async function pasteFromClipboard() {
+      try {
+        const text = await navigator.clipboard.readText();
+        document.getElementById("urlInput").value = text;
+      } catch (err) {
+        alert("Clipboard access denied. Please paste manually.");
+      }
+    }
+
+    function download() {
+      const url = document.getElementById("urlInput").value.trim();
+      if (!url) {
+        alert("Please paste a YouTube link.");
+        return;
+      }
+      // Extract video ID if full URL
+      const match = url.match(/(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+      const videoId = match ? match[1] : null;
+      if (!videoId) {
+        alert("Invalid YouTube link.");
+        return;
+      }
+      // Redirect to a downloader tool (or replace with your backend endpoint)
+      window.open("https://www.y2mate.is/youtube/" + videoId, "_blank");
+    }
+  </script>
+
+</body>
+</html>
